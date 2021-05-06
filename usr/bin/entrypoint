@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# per-project entrypoint scripting
+if [ -e /app/.elephantbox/entryscript ]; then
+  source /app/.elephantbox/entryscript
+fi
+
+# Laravel specific: in production cache the config on startup
+if [[ -x "/app/artisan" ]]; then
+  if [[ "$APP_ENV" == "production" ]]; then
+    artisan config:cache -q
+  else
+    artisan config:clear -q
+  fi
+fi
+
+exec "$@"
