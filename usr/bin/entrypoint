@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # per-project entrypoint scripting
-if [ -e /app/.elephantbox/entryscript ]; then
-  source /app/.elephantbox/entryscript
+if [[ ! -z "${ENTRYPOINT_SCRIPT}" && -x "${ENTRYPOINT_SCRIPT}" ]]; then
+  source "${ENTRYPOINT_SCRIPT}"
 fi
 
 # Laravel specific: in production cache the config on startup
